@@ -276,7 +276,6 @@ def make_pdf(filename, title, headers, rows):
     from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
     from reportlab.pdfbase import pdfmetrics
     from reportlab.pdfbase.ttfonts import TTFont
-    # Unicode font if DejaVu is available; otherwise built-in font is used.
     font_name = "Helvetica"
     for path in ("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", r"C:\Windows\Fonts\arial.ttf"):
         if os.path.exists(path):
@@ -567,7 +566,6 @@ async def export_start(m):
 @admin_router.callback_query(F.data.startswith("export:"))
 async def export_cb(c):
     fmt_name=c.data.split(":")[1]; lang=await lang_of(c.from_user.id)
-    # Generate current full export; export functions are synchronous and only process in-memory records.
     rows=await all_feedback()
     headers=["ID","Type","Date","Full name","Group","Telegram ID","Username","Text"]
     data=[]
